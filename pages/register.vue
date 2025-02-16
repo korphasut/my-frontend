@@ -11,6 +11,7 @@ const email = ref("");
 const mobile = ref("");
 const errorMessage = ref("");
 const successMessage = ref("");
+const isLoading = ref(false);
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const mobileRegex = /^[0-9]{10,15}$/;
@@ -28,12 +29,13 @@ const isFormValid = computed(() => {
 });
 
 const register = async () => {
-    if (!isFormValid.value) {
+    if (!isFormValid.value || isLoading.value) {
         errorMessage.value = "Please fill in all fields correctly.";
         return;
     }
 
     errorMessage.value = "";
+    isLoading.value = true;
 
     try {
         const response = await fetch("https://fastapi-backend-d5cy.onrender.com/register", {
@@ -60,6 +62,8 @@ const register = async () => {
         }
     } catch (error) {
         errorMessage.value = "Error registering user. Please try again.";
+    } finally {
+        isLoading.value = false;
     }
 };
 </script>
@@ -143,10 +147,13 @@ const register = async () => {
             </div>
 
             <!-- Register Button -->
-            <button @click="register" :disabled="!isFormValid"
-                class="w-full bg-green-500 text-white py-3 rounded-md hover:bg-green-600 transition text-lg sm:text-base disabled:bg-gray-400 disabled:cursor-not-allowed"
+            <button @click="register" :disabled="!isFormValid || isLoading"
+                class="w-full bg-green-500 text-white py-3 rounded-md hover:bg-green-600 transition text-lg sm:text-base flex justify-center items-center disabled:bg-gray-400 disabled:cursor-not-allowed"
                 data-testid="register-button">
-                Register
+                
+                <svg v-if="isLoading" class="animate-spin h-5 w-5 mr-2 border-t-2 border-white rounded-full" viewBox="0 0 24 24"></svg>
+                <span v-if="!isLoading">Register</span>
+                <span v-else>Loading...</span>
             </button>
 
             <div class="text-center mt-4">
