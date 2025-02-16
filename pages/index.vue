@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -8,8 +8,12 @@ const password = ref("");
 const errorMessage = ref("");
 const isLoading = ref(false);
 
+const isFormValid = computed(() => {
+    return username.value.trim() !== "" && password.value.trim() !== "";
+});
+
 const login = async () => {
-    if (isLoading.value) return;
+    if (isLoading.value || !isFormValid.value) return;
     errorMessage.value = "";
     isLoading.value = true;
 
@@ -29,6 +33,7 @@ const login = async () => {
 
         if (data && data.access_token) {
             localStorage.setItem("token", data.access_token);
+            localStorage.setItem("username", username.value);
             router.push("/homepage");
         } else {
             errorMessage.value = "Invalid username or password";
@@ -42,7 +47,7 @@ const login = async () => {
 </script>
 
 <template>
-    <div class="flex items-center justify-center min-h-screen bg-gray-100 px-4 sm:px-6">
+    <div class="flex items-center justify-center min-h-screen bg-teal-500 px-4 sm:px-6">
         <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-md w-full max-w-sm sm:max-w-md"
             data-testid="login-container">
             <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-700 mb-6" data-testid="login-title">
@@ -69,8 +74,8 @@ const login = async () => {
             </div>
 
             <!-- Login Button -->
-            <button @click="login" :disabled="isLoading"
-                class="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition text-lg sm:text-base flex justify-center items-center disabled:bg-gray-400 disabled:cursor-not-allowed"
+            <button @click="login" :disabled="!isFormValid || isLoading"
+                class="w-full bg-sky-400 text-white py-3 rounded-md hover:bg-sky-500 transition text-lg sm:text-base flex justify-center items-center disabled:bg-red-400 disabled:cursor-not-allowed"
                 data-testid="login-button">
 
                 <svg v-if="isLoading" class="animate-spin h-5 w-5 mr-2 border-t-2 border-white rounded-full"

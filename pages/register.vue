@@ -69,7 +69,7 @@ const register = async () => {
 </script>
 
 <template>
-    <div class="flex items-center justify-center min-h-screen bg-gray-100 px-4 sm:px-6">
+    <div class="flex items-center justify-center min-h-screen bg-teal-400 px-4 sm:px-6">
         <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-md w-full max-w-md" data-testid="register-container">
             <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-700 mb-6" data-testid="register-title">
                 Register
@@ -106,19 +106,19 @@ const register = async () => {
                 <label class="block text-gray-600 mb-2">Gender</label>
                 <div class="flex gap-2">
                     <button @click="gender = 'male'"
-                        :class="gender === 'male' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'"
+                        :class="gender === 'male' ? 'bg-sky-500 text-white' : 'bg-gray-200 text-gray-700'"
                         class="flex-1 py-3 text-center rounded-lg transition-colors duration-200"
                         data-testid="register-gender-male">
                         Male
                     </button>
                     <button @click="gender = 'female'"
-                        :class="gender === 'female' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'"
+                        :class="gender === 'female' ? 'bg-sky-500 text-white' : 'bg-gray-200 text-gray-700'"
                         class="flex-1 py-3 text-center rounded-lg transition-colors duration-200"
                         data-testid="register-gender-female">
                         Female
                     </button>
                     <button @click="gender = 'other'"
-                        :class="gender === 'other' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'"
+                        :class="gender === 'other' ? 'bg-sky-500 text-white' : 'bg-gray-200 text-gray-700'"
                         class="flex-1 py-3 text-center rounded-lg transition-colors duration-200"
                         data-testid="register-gender-other">
                         Other
@@ -148,7 +148,7 @@ const register = async () => {
 
             <!-- Register Button -->
             <button @click="register" :disabled="!isFormValid || isLoading"
-                class="w-full bg-green-500 text-white py-3 rounded-md hover:bg-green-600 transition text-lg sm:text-base flex justify-center items-center disabled:bg-gray-400 disabled:cursor-not-allowed"
+                class="w-full bg-sky-400 text-white py-3 rounded-md hover:bg-sky-500 transition text-lg sm:text-base flex justify-center items-center disabled:bg-red-400 disabled:cursor-not-allowed"
                 data-testid="register-button">
                 
                 <svg v-if="isLoading" class="animate-spin h-5 w-5 mr-2 border-t-2 border-white rounded-full" viewBox="0 0 24 24"></svg>
