@@ -7,7 +7,6 @@ const router = useRouter();
 const username = ref(localStorage.getItem("username") || "Guest");
 const showLogoutConfirm = ref(false);
 
-// ฟังก์ชัน Logout
 const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
@@ -42,11 +41,11 @@ const logout = () => {
 
         <!-- Full Width Banner -->
         <div class="w-full">
-            <img :src="homepageImage" alt="Coffee Banner" class="w-full h-[500px] object-cover">
+            <img :src="homepageImage" alt="Coffee Banner" class="w-full h-[550px] object-cover">
         </div>
 
         <!-- Main Content -->
-        <div class="flex flex-col items-center justify-center text-center p-6 mt-16">
+        <div class="flex flex-col items-center justify-center text-center p-6 mt-12">
             <h2 class="text-2xl font-semibold">กว่าจะมาเป็นกาแฟที่เราดื่ม กาแฟนั้นผ่านอะไรมาบ้าง...</h2>
             <p class="text-gray-700 max-w-2xl mt-4">
                 ทุกครั้งที่เราจิบกาแฟ เราอาจไม่ได้ฉุกคิดถึงเบื้องหลังที่ทำให้กาแฟมีรสชาติและกลิ่นหอมที่น่าหลงไหล...
