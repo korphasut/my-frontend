@@ -17,11 +17,11 @@ const logout = () => {
 <template>
     <div class="min-h-screen bg-gray-100 flex flex-col">
         <!-- Navbar -->
-        <nav class="bg-white shadow-md px-6 py-4 flex flex-wrap justify-between items-center">
-            <h1 class="text-2xl font-bold">Hello !</h1>
+        <nav class="bg-white shadow-md px-6 py-2 flex flex-wrap justify-between items-center">
+            <h1 class="text-2xl font-bold">Hello World!</h1>
 
             <!-- Navigation Links -->
-            <ul class="flex flex-wrap gap-4 text-gray-700">
+            <ul class="flex flex-wrap gap-10 text-gray-700">
                 <li class="hover:text-blue-500 cursor-pointer transition">สายพันธุ์ของเมล็ดกาแฟ</li>
                 <li class="hover:text-blue-500 cursor-pointer transition">ประเทศที่ปลูกกาแฟ</li>
                 <li class="hover:text-blue-500 cursor-pointer transition">Process ของเมล็ดกาแฟ</li>
@@ -31,7 +31,7 @@ const logout = () => {
 
             <!-- Username & Logout -->
             <div class="flex items-center space-x-6">
-                <span class="text-gray-700 font-semibold">{{ username }}</span>
+                <span class="text-gray-700">{{ username }}</span>
                 <button @click="showLogoutConfirm = true"
                     class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
                     Logout
@@ -45,8 +45,8 @@ const logout = () => {
         </div>
 
         <!-- Main Content -->
-        <div class="flex flex-col items-center justify-center text-center p-6 mt-12">
-            <h2 class="text-2xl font-semibold">กว่าจะมาเป็นกาแฟที่เราดื่ม กาแฟนั้นผ่านอะไรมาบ้าง...</h2>
+        <div class="flex flex-col items-center justify-center text-center p-6 mt-10">
+            <h2 class="text-3xl font-semibold">กว่าจะมาเป็นกาแฟที่เราดื่ม กาแฟนั้นผ่านอะไรมาบ้าง...</h2>
             <p class="text-gray-700 max-w-2xl mt-4">
                 ทุกครั้งที่เราจิบกาแฟ เราอาจไม่ได้ฉุกคิดถึงเบื้องหลังที่ทำให้กาแฟมีรสชาติและกลิ่นหอมที่น่าหลงไหล...
                 กาแฟแต่ละแก้วไม่ได้เป็นเพียงเครื่องดื่ม แต่คือผลลัพธ์ของกระบวนการที่ซับซ้อน
