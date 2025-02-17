@@ -75,7 +75,7 @@ const login = async () => {
 
             <!-- Login Button -->
             <button @click="login" :disabled="!isFormValid || isLoading"
-                class="w-full bg-sky-400 text-white py-3 rounded-md hover:bg-sky-500 transition text-lg sm:text-base flex justify-center items-center disabled:bg-red-400 disabled:cursor-not-allowed"
+                class="w-full bg-blue-400 text-white py-3 rounded-md hover:bg-blue-500 transition text-lg sm:text-base flex justify-center items-center disabled:bg-red-400 disabled:cursor-not-allowed"
                 data-testid="login-button">
 
                 <svg v-if="isLoading" class="animate-spin h-5 w-5 mr-2 border-t-2 border-white rounded-full"
