@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: [],
+  modules: ["@nuxtjs/tailwindcss"],
 
   runtimeConfig: {
     public: {
@@ -18,4 +18,5 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
   compatibilityDate: "2025-02-16",
+  
 });

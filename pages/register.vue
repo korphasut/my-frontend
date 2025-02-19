@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
-import { useCookie } from "#app";
 
 const router = useRouter();
 
@@ -28,13 +27,6 @@ const isFormValid = computed(() => {
         emailRegex.test(email.value) &&
         mobileRegex.test(mobile.value)
     );
-});
-
-// ใช้ Cookie แทน localStorage
-const token = useCookie("token", {
-  maxAge: 60 * 60 * 24, // Token มีอายุ 1 วัน
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "strict",
 });
 
 const register = async () => {
@@ -71,13 +63,8 @@ const register = async () => {
         }
 
         if (response.ok) {
-            successMessage.value = "Registration successful! Redirecting...";
-            if (data.access_token) {
-                token.value = data.access_token;
-                setTimeout(() => router.push("/homepage"), 2000);
-            } else {
-                setTimeout(() => router.push("/"), 2000);
-            }
+            successMessage.value = "Registration successful! Redirecting to login...";
+            setTimeout(() => router.push("/"), 2000);
         } else {
             errorMessage.value = data.detail || "Registration failed";
         }
