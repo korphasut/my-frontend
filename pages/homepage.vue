@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useCookie } from "#app";
 import homepageImage from '@/assets/images/test_alonehope.webp';
 
 const router = useRouter();
-const username = ref("Guest");
+
+
+const username = useCookie("username", { sameSite: "strict" });
 const showLogoutConfirm = ref(false);
 const isMenuOpen = ref(false);
 
-onMounted(() => {
-  if (process.client) {
-    username.value = localStorage.getItem("username") || "Guest";
-  }
-});
-
 const logout = () => {
-  if (process.client) {
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-  }
-  router.push("/");
+
+    const token = useCookie("token");
+    const user = useCookie("username");
+
+    token.value = null;
+    user.value = null;
+
+    router.push("/");
 };
 </script>
 
@@ -27,10 +27,10 @@ const logout = () => {
     <div class="min-h-screen bg-gray-100 flex flex-col">
         <!-- Navbar -->
         <nav class="bg-white shadow-md px-6 py-4 flex items-center justify-between">
-            <!-- Logo / Title (ชิดซ้าย) -->
+            <!-- Logo / Title -->
             <h1 class="text-2xl font-bold">Hello!</h1>
 
-            <!-- Navigation Links (อยู่ตรงกลาง) -->
+            <!-- Navigation Links -->
             <ul class="hidden sm:flex flex-grow justify-center space-x-8 text-gray-700">
                 <li class="hover:text-blue-500 cursor-pointer transition">สายพันธุ์ของเมล็ดกาแฟ</li>
                 <li class="hover:text-blue-500 cursor-pointer transition">ประเทศที่ปลูกกาแฟ</li>
@@ -41,7 +41,7 @@ const logout = () => {
 
             <!-- Username & Logout -->
             <div class="flex items-center space-x-4 ml-auto">
-                <span class="text-gray-700 font-semibold">{{ username }}</span>
+                <span class="text-gray-700 font-semibold">{{ username || "Guest" }}</span>
                 <button @click="showLogoutConfirm = true"
                     class="bg-blue-200 text-white px-4 py-2 rounded-lg hover:bg-blue-400 transition">
                     Logout
@@ -100,4 +100,3 @@ const logout = () => {
         </div>
     </div>
 </template>
-

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
+import { useCookie } from "#app";
 
 const router = useRouter();
 
@@ -15,17 +16,25 @@ const isLoading = ref(false);
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const mobileRegex = /^[0-9]{10,15}$/;
+const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
 const isFormValid = computed(() => {
     return (
         username.value.trim() !== "" &&
-        password.value.trim() !== "" &&
+        passwordRegex.test(password.value) &&
         gender.value.trim() !== "" &&
         email.value.trim() !== "" &&
         mobile.value.trim() !== "" &&
         emailRegex.test(email.value) &&
         mobileRegex.test(mobile.value)
     );
+});
+
+// ใช้ Cookie แทน localStorage
+const token = useCookie("token", {
+  maxAge: 60 * 60 * 24, // Token มีอายุ 1 วัน
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "strict",
 });
 
 const register = async () => {
@@ -52,11 +61,23 @@ const register = async () => {
             }),
         });
 
-        const data = await response.json();
+        let data;
+        try {
+            data = await response.json();
+        } catch (error) {
+            errorMessage.value = "Unexpected error. Please try again.";
+            isLoading.value = false;
+            return;
+        }
 
         if (response.ok) {
-            successMessage.value = "Registration successful! Redirecting to login...";
-            setTimeout(() => router.push("/"), 2000);
+            successMessage.value = "Registration successful! Redirecting...";
+            if (data.access_token) {
+                token.value = data.access_token;
+                setTimeout(() => router.push("/homepage"), 2000);
+            } else {
+                setTimeout(() => router.push("/"), 2000);
+            }
         } else {
             errorMessage.value = data.detail || "Registration failed";
         }

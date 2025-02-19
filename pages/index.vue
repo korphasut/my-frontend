@@ -1,12 +1,28 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
+import { useCookie } from "#app";
 
 const router = useRouter();
 const username = ref("");
 const password = ref("");
 const errorMessage = ref("");
 const isLoading = ref(false);
+
+const token = useCookie("token", {
+  maxAge: 60 * 60 * 24,
+  sameSite: "strict",
+  secure: process.env.NODE_ENV === "production",
+  httpOnly: false,
+});
+
+const user = useCookie("username", {
+  maxAge: 60 * 60 * 24,
+  sameSite: "strict",
+  secure: process.env.NODE_ENV === "production",
+  httpOnly: false,
+});
+
 
 const isFormValid = computed(() => {
     return username.value.trim() !== "" && password.value.trim() !== "";
@@ -32,8 +48,8 @@ const login = async () => {
         const data = await response.json();
 
         if (data && data.access_token) {
-            localStorage.setItem("token", data.access_token);
-            localStorage.setItem("username", username.value);
+            token.value = data.access_token;
+            user.value = username.value;
             router.push("/homepage");
         } else {
             errorMessage.value = "Invalid username or password";
@@ -44,6 +60,7 @@ const login = async () => {
         isLoading.value = false;
     }
 };
+
 </script>
 
 <template>
