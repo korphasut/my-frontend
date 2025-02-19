@@ -47,7 +47,7 @@ const login = async () => {
 </script>
 
 <template>
-    <div class="flex items-center justify-center min-h-screen bg-teal-500 px-4 sm:px-6">
+    <div class="flex items-center justify-center min-h-screen bg-blue-200 px-4 sm:px-6">
         <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-md w-full max-w-sm sm:max-w-md"
             data-testid="login-container">
             <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-700 mb-6" data-testid="login-title">
@@ -75,7 +75,7 @@ const login = async () => {
 
             <!-- Login Button -->
             <button @click="login" :disabled="!isFormValid || isLoading"
-                class="w-full bg-blue-400 text-white py-3 rounded-md hover:bg-blue-500 transition text-lg sm:text-base flex justify-center items-center disabled:bg-red-400 disabled:cursor-not-allowed"
+                class="w-full bg-sky-500 text-white py-3 rounded-md hover:bg-sky-600 transition text-lg sm:text-base flex justify-center items-center disabled:bg-blue-200 disabled:cursor-not-allowed"
                 data-testid="login-button">
 
                 <svg v-if="isLoading" class="animate-spin h-5 w-5 mr-2 border-t-2 border-white rounded-full"
